@@ -1,6 +1,4 @@
-
-
-//! Shows how to render simple primitive shapes with a single color.
+use rand::Rng;
 
 use bevy::{prelude::*, sprite::MaterialMesh2dBundle};
 
@@ -44,7 +42,7 @@ fn spawn_entities(mut commands: Commands, mut meshes: ResMut<Assets<Mesh>>, mut 
         commands.spawn(MaterialMesh2dBundle {
             mesh: meshes.add(shape::Circle::new(50.).into()).into(),
             material: materials.add(ColorMaterial::from(Color::PURPLE)),
-            transform: Transform::from_translation(Vec3::new(-150., 0., 0.)),
+            transform: Transform::from_translation(Vec3::new(rand::thread_rng().gen_range(0..100) as f32, 0., 0.)),
             ..default()
         }).insert(Entity);
     }
