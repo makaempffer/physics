@@ -2,6 +2,7 @@ use rand::Rng;
 
 use bevy::{prelude::*, sprite::MaterialMesh2dBundle};
 
+
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
@@ -24,6 +25,7 @@ fn move_circle(time: Res<Time>, mut query: Query<&mut Transform, With<Entity>>) 
         transform.translation.x += 10.0 * time.delta_seconds();
     }
 }
+//rand::thread_rng().gen_range(0..800) as f32
 
 fn spawn_entities(mut commands: Commands, mut meshes: ResMut<Assets<Mesh>>, mut materials: ResMut<Assets<ColorMaterial>>) {
     let amount: i32 = 10;
@@ -31,7 +33,7 @@ fn spawn_entities(mut commands: Commands, mut meshes: ResMut<Assets<Mesh>>, mut 
         commands.spawn(MaterialMesh2dBundle {
             mesh: meshes.add(shape::Circle::new(10.).into()).into(),
             material: materials.add(ColorMaterial::from(Color::PURPLE)),
-            transform: Transform::from_translation(Vec3::new(rand::thread_rng().gen_range(0..100) as f32, 0., 0.)),
+            transform: Transform::from_translation(Vec3 { x: (rand::thread_rng().gen_range(-400..400) as f32), y: (rand::thread_rng().gen_range(-400..400) as f32), z: (0.0) }),
             ..default()
         }).insert(Entity);
     }
