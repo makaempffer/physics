@@ -22,6 +22,7 @@ fn main() {
         .add_startup_system(spawn_entities)
         .add_system(update_entities)
         .add_system(apply_gravity)
+        .add_system(border_collision)
         .run();
 }
 
@@ -34,6 +35,14 @@ fn setup(
     mut commands: Commands
 ) {
     commands.spawn(Camera2dBundle::default());
+}
+
+fn border_collision(mut query: Query<(&mut Velocity, &mut Transform), With<Entity>>) {
+    for mut transform in query.iter_mut() {
+        if transform.1.translation.y <= -400.0 {
+            transform.0.velocity.y *= -1.0;
+        }
+    }
 }
 
 fn update_entities(time: Res<Time>, mut query: Query<(&mut Velocity, &mut Transform), With<Entity>>) {
